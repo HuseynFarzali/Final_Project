@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace MarketApp.Data.Models
 {
-    internal class SaleItem
+    public class SaleItem
     {
+        public int ID { get; set; }
+        public Product Product { get; set; }
+        public int Count { get; set; }
     }
 }

@@ -105,32 +105,75 @@ namespace MarketApp.Services.Concrete
 
         public List<Product> SearchProductsByValue(decimal startValue, decimal endValue)
         {
-            throw new NotImplementedException();
+            var filteredProducts = from product in Products
+                                   where product.ProductValue >= startValue
+                                   && product.ProductValue <= endValue
+                                   select product;
+
+            if (filteredProducts == null)
+                throw new ArgumentException($"There is no corresponding product object to the given product value interval: [{startValue}, [{endValue}]");
+
+            return filteredProducts.ToList();
         }
 
-        public Sale SearchSaleByExactDate(DateTime date)
+        public List<Sale> SearchSaleByExactDate(DateTime date)
         {
-            throw new NotImplementedException();
+            var filteredSales = from sale in Sales
+                                where
+                                sale.Date.Year == date.Year &&
+                                sale.Date.Month == date.Month &&
+                                sale.Date.Day == date.Day
+
+                                select sale;
+
+            return filteredSales.ToList() ?? new List<Sale>();
         }
 
         public Sale SearchSaleByID(int id)
         {
-            throw new NotImplementedException();
+            var foundSale = (Sale)(from sale in Sales
+                            where sale.ID == id
+                            select sale);
+
+            if (foundSale == null)
+                throw new ArgumentException($"There is no corresponding sale object to the given sale ID: {id}");
+
+            return foundSale;
         }
 
         public List<Sale> SearchSalesByDateInterval(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            var filteredSaled = from sale in Sales
+                                where sale.Date >= startDate && sale.Date <= endDate
+                                select sale;
+
+            if (filteredSaled == null) throw new ArgumentException($"There is no corresponding sale object in the given date-time interval: [{startDate}, {endDate}]");
+
+            return filteredSaled.ToList();
         }
 
         public List<Sale> SearchSalesByPriceInterval(decimal startPrice, decimal endPrice)
         {
-            throw new NotImplementedException();
+            var filteredSales = from sale in Sales
+                                where sale.FinalPrice >= startPrice && sale.FinalPrice <= endPrice
+                                select sale;
+
+            if (filteredSales == null) throw new ArgumentException($"There is no corresponding sale object in the given price interval: [{startPrice}, {endPrice}]");
+
+            return filteredSales.ToList();
         }
 
         public void UpdateProduct(int productId, string Name, int productValue, Category category)
         {
-            throw new NotImplementedException();
+            var foundProduct = (Product)(from product in Products
+                                         where product.ID == productId
+                                         select product);
+
+            if (foundProduct == null) throw new ArgumentException($"There is no corresponding product object by the given product ID: {productId}");
+
+            foundProduct.ProductName = Name;
+            foundProduct.ProductValue = productValue;
+            foundProduct.ProductCategory = category;
         }
     }
 }

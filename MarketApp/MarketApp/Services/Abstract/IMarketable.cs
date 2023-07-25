@@ -13,10 +13,10 @@ namespace MarketApp.Services.Abstract
         public List<Sale> Sales { get; set; }
         public List<Product> Products { get; set; }
         public void AddSale(Sale sale);
-        public void RefundProduct(Sale sale, Product product);
-        public void RefundEntireSale(Sale sale);
+        public void RefundProduct(int saleId, int saleItemId);
+        public void RefundEntireSale(int saleId);
         public List<Sale> SearchSalesByDateInterval(DateTime startDate, DateTime endDate);
-        public Sale SearchSaleByExactDate(DateTime date);
+        public List<Sale> SearchSaleByExactDate(DateTime date);
         public List<Sale> SearchSalesByPriceInterval(decimal startPrice, decimal endPrice);
         public Sale SearchSaleByID(int id);
         

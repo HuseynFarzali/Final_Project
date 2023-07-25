@@ -11,7 +11,7 @@ namespace MarketApp.Data.Models
         public int ID { get; set; }
         public int FinalPrice { get; set; }
 
-        public List<Product> SaleItems = new List<Product>();
+        public List<SaleItem> SaleItems = new List<SaleItem>();
         public DateTime Date { get; set; }
     }
 }
